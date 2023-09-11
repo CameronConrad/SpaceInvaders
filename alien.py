@@ -33,6 +33,7 @@ class Alien(pygame.sprite.Sprite):
         self.moving_right = not self.moving_right
         self.moving_left = not self.moving_left
         self.rect.x += move
+        self.rect.y += self.settings.alien_height
 
     def check_edges(self):
         # Check if the alien has reached the edge
