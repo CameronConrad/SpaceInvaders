@@ -30,6 +30,9 @@ class Settings:
         self.bullet_height = 10
         self.bullet_color = (255, 0, 0)
 
+        # Powerup settings
+        self.powerup_speed = 4
+
         # Level up settings
         self.alien_speed_increase = 0.05
 
