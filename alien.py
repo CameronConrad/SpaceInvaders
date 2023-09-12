@@ -1,20 +1,18 @@
 # A class for the alien
 
 import pygame
+from settings import Settings
 
 class Alien(pygame.sprite.Sprite):
-    def __init__(self, x, y, game):
+    def __init__(self, x, y):
         # Initialize the alien and set its starting position
         super().__init__()
-
-        # Import the game
-        self.game = game
 
         # Load the image
         self.image = pygame.image.load('Images/alien.png')
 
         # Load settings
-        self.settings = game.settings
+        self.settings = Settings()
 
         # Resize image and get rect
         self.image = pygame.transform.scale(self.image, (self.settings.alien_width, self.settings.alien_height))
