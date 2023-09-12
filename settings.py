@@ -30,8 +30,18 @@ class Settings:
         self.bullet_height = 10
         self.bullet_color = (255, 0, 0)
 
+        self.bullet_setting = {
+            # Each setting has a list of bullet attributes corresponding to speed, width, and height.
+            'normal': [12, 5, 10], # 12 speed, 5 width, 10 height
+            'speed': [20, 5, 10], # 20 speed, 5 width, 10 height
+            'size': [12, 30, 20], # 12 speed, 30 width, 20 height
+            'invincible': [12, 5, 10] # 12 speed, 5 width, 10 height
+        }
+
         # Powerup settings
         self.powerup_speed = 4
+        self.powerup_radius = 5
+        self.powerup_color = (255, 255, 255)
 
         # Level up settings
         self.alien_speed_increase = 0.05
@@ -41,3 +51,7 @@ class Settings:
         self.scoreboard_text_color = (255, 255, 255)
         self.scoreboard_width = 800
         self.scoreboard_height = 50
+    
+    def change_bullet_setting(self, setting):
+        # Change the bullet setting
+        self.bullet_speed, self.bullet_width, self.bullet_height = self.bullet_setting[setting]

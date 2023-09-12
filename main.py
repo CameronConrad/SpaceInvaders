@@ -2,10 +2,12 @@
 
 import pygame
 import sys
+import random
 from settings import Settings
 from hero import Hero
 from alien import Alien
 from bullet import Bullet
+from powerup import Powerup
 from scoreboard import Scoreboard
 
 # Create a class for the game
@@ -36,6 +38,9 @@ class Game:
 
         # Create a sprite group for the bullets
         self.bullets = pygame.sprite.Group()
+
+        # Create a sprite group for the powerups
+        self.powerups = pygame.sprite.Group()
 
         # Create level variable
         self.level = 1
@@ -118,6 +123,11 @@ class Game:
         if len(collisions) > 0:
             self.reset_game()
     
+    def check_hero_powerup_collisions(self):
+        collisions = pygame.sprite.spritecollide(self.hero, self.powerups, True)
+        if len(collisions) > 0:
+            self.settings.change_bullet_setting(collisions[0].powerup)
+    
     def reset_game(self, level_up = False):
         # Reset the game
         self.spawn_hero()
@@ -141,6 +151,11 @@ class Game:
         self.spawn_aliens()
         self.run = True
         while self.run:
+            # Randomly spawn a powerup once every 100 frames
+            #if self.clock.get_fps() != 0 and self.clock.get_time() % 5 == 0:
+            powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
+            self.powerups.add(powerup)
+
             # Set the FPS
             self.clock.tick(self.settings.fps)
 
@@ -152,6 +167,7 @@ class Game:
             self.hero.update()
             self.aliens.update()
             self.bullets.update()
+            self.powerups.update()
             self.scoreboard.update()
 
             # Check for collisions
@@ -168,6 +184,7 @@ class Game:
                 if bullet.draw(self.screen) == "miss":
                     self.bullets.remove(bullet)
                     self.scoreboard.increase_stat(misses=1)
+            self.powerups.draw(self.screen)
             self.scoreboard.draw(self.screen)
 
             # Update the screen
