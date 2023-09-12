@@ -5,7 +5,9 @@ from settings import Settings
 
 class Alien(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        # Initialize the alien and set its starting position
         super().__init__()
+
         # Load the image
         self.image = pygame.image.load('Images/alien.png')
 

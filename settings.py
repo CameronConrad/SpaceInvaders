@@ -25,12 +25,12 @@ class Settings:
         self.alien_speed = 3
 
         # Bullet settings
-        self.bullet_speed = 5
+        self.bullet_speed = 7
         self.bullet_width = 5
         self.bullet_height = 10
         self.bullet_color = (0, 255, 0) # Green
 
         # Level up settings
-        self.alien_speed_increase = 1
+        self.alien_speed_increase = 10
 
         

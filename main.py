@@ -118,12 +118,13 @@ class Game:
     def level_up(self):
         # Increase the level
         self.level += 1
-        self.settings.alien_speed += self.settings.alien_speed_increase
+        # Increase alien speed
+        for alien in self.aliens:
+            alien.settings.alien_speed += self.settings.alien_speed_increase
     
     def run_game(self):
         self.spawn_aliens()
         self.run = True
-        level = 0
         while self.run:
             # Set the FPS
             self.clock.tick(self.settings.fps)
