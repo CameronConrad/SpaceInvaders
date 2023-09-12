@@ -6,6 +6,7 @@ from settings import Settings
 from hero import Hero
 from alien import Alien
 from bullet import Bullet
+from scoreboard import Scoreboard
 
 # Create a class for the game
 class Game:
@@ -28,7 +29,7 @@ class Game:
         pygame.display.set_caption('Space Invaders')
 
         # Create the hero object
-        self.hero = Hero(self.screen_rect.centerx, self.screen_rect.bottom - 50)
+        self.spawn_hero()
 
         # Create a sprite group for the aliens
         self.aliens = pygame.sprite.Group()
@@ -39,6 +40,9 @@ class Game:
         # Create level variable
         self.level = 1
 
+        # Initialize the scoreboard
+        self.scoreboard = Scoreboard(self.screen_rect.centerx, self.screen_rect.bottom - 50, self)
+
         # Set run to false
         self.run = False
     
@@ -46,8 +50,12 @@ class Game:
         # Spawn the aliens
         for i in range(self.settings.alien_rows):
             for j in range(self.settings.alien_columns):
-                alien = Alien(j * self.settings.alien_width + 5, i * self.settings.alien_height)
+                alien = Alien(j * self.settings.alien_width + 5, i * self.settings.alien_height, self)
                 self.aliens.add(alien)
+    
+    def spawn_hero(self):
+        # Spawn the hero
+        self.hero = Hero(self.screen_rect.centerx, self.screen_rect.bottom - 150, self)
     
     def check_alien_position(self):
         # Check if either side of the alien block reaches the edge
@@ -72,8 +80,11 @@ class Game:
         elif event.key == pygame.K_LEFT:
             self.hero.moving_left = True
         elif event.key == pygame.K_SPACE:
+            self.shoot_bullet()
+
+    def shoot_bullet(self):
             # Create a bullet and add it to the bullets group
-            bullet = Bullet(self.hero.rect.centerx, self.hero.rect.top)
+            bullet = Bullet(self.hero.rect.centerx, self.hero.rect.top, self)
             self.bullets.add(bullet)
         
     def check_keyup_events(self, event):
@@ -97,6 +108,7 @@ class Game:
     def check_bullet_alien_collisions(self):
         # Check for collisions between bullets and aliens
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        self.scoreboard.increase_stat(hits=len(collisions))
         if len(self.aliens) == 0:
             self.reset_game(True)
     
@@ -108,19 +120,22 @@ class Game:
     
     def reset_game(self, level_up = False):
         # Reset the game
-        self.hero = Hero(self.screen_rect.centerx, self.screen_rect.bottom - 50)
+        self.spawn_hero()
         self.aliens.empty()
         self.bullets.empty()
         self.spawn_aliens()
         if level_up:
             self.level_up()
+            self.scoreboard.increase_stat(wins=1)
+        else:
+            self.scoreboard.increase_stat(losses=1)
 
     def level_up(self):
         # Increase the level
         self.level += 1
         # Increase alien speed
         for alien in self.aliens:
-            alien.settings.alien_speed += self.settings.alien_speed_increase
+            self.settings.alien_speed += self.settings.alien_speed_increase
     
     def run_game(self):
         self.spawn_aliens()
@@ -137,6 +152,7 @@ class Game:
             self.hero.update()
             self.aliens.update()
             self.bullets.update()
+            self.scoreboard.update()
 
             # Check for collisions
             self.check_bullet_alien_collisions()
@@ -148,7 +164,11 @@ class Game:
             # Draw sprites on the screen
             self.hero.draw(self.screen)
             self.aliens.draw(self.screen)
-            self.bullets.draw(self.screen)
+            for bullet in self.bullets.sprites():
+                if bullet.draw(self.screen) == "miss":
+                    self.bullets.remove(bullet)
+                    self.scoreboard.increase_stat(misses=1)
+            self.scoreboard.draw(self.screen)
 
             # Update the screen
             pygame.display.update()

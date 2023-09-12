@@ -1,12 +1,15 @@
 # The class for the main character
 
 import pygame
-from settings import Settings
 
 class Hero:
-    def __init__(self, x, y):
+    def __init__(self, x, y, game):
+
+        # Import the game
+        self.game = game
+
         # Create a settings object
-        self.settings = Settings()
+        self.settings = game.settings
 
         # Load the image
         self.image = pygame.image.load('Images/spaceship.png')

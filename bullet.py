@@ -1,15 +1,14 @@
 # A class to manage bullets
 
 import pygame
-from settings import Settings
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, centerx, y, game):
         # Initialize the sprite
         super().__init__()
 
         # Import settings
-        self.settings = Settings()
+        self.settings = game.settings
 
         # Create the bullet image
         self.image = pygame.Surface((self.settings.bullet_width, self.settings.bullet_height))
@@ -17,7 +16,7 @@ class Bullet(pygame.sprite.Sprite):
 
         # Get the rect of the bullet
         self.rect = self.image.get_rect()
-        self.rect.x = x
+        self.rect.centerx = centerx
         self.rect.y = y
         
     def update(self):
@@ -27,6 +26,7 @@ class Bullet(pygame.sprite.Sprite):
     def draw(self, screen):
         # If the bullet is off the screen, remove it
         if self.rect.bottom <= 0:
-            self.kill()
+            return "miss"
         # Draw the bullet
         screen.blit(self.image, self.rect)
+        return None
