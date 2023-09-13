@@ -31,7 +31,3 @@ class Powerup(pygame.sprite.Sprite):
     def update(self):
         # Move the powerup down
         self.rect.y += self.settings.powerup_speed
-    
-    def draw(self, screen):
-        # Draw the powerup
-        pygame.draw.circle(screen, (255, 255, 255), (self.rect.centerx, self.rect.centery), 10)

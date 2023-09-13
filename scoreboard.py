@@ -39,7 +39,7 @@ class Scoreboard:
         self.accuracy_text = self.font.render(f'A: {self.accuracy}', True, self.settings.scoreboard_text_color)
         self.wins_text = self.font.render(f'W: {self.wins}', True, self.settings.scoreboard_text_color)
         self.losses_text = self.font.render(f'L: {self.losses}', True, self.settings.scoreboard_text_color)
-        self.win_rate_text = self.font.render(f'%: {self.win_rate}', True, self.settings.scoreboard_text_color)
+        self.win_rate_text = self.font.render(f'Win %: {self.win_rate}', True, self.settings.scoreboard_text_color)
         self.level_text = self.font.render(f'Level: {self.game.level}', True, self.settings.scoreboard_text_color)
 
     def increase_stat(self, hits=0, misses=0, wins=0, losses=0):
@@ -70,4 +70,4 @@ class Scoreboard:
         # Draw the text all in one line
         screen.blit(self.accuracy_text, (self.rect.x + 10, self.rect.y + 10))
         screen.blit(self.win_rate_text, (self.rect.x + 150, self.rect.y + 10))
-        screen.blit(self.level_text, (self.rect.x + 290, self.rect.y + 10))
+        screen.blit(self.level_text, (self.rect.x + 360, self.rect.y + 10))

@@ -91,14 +91,14 @@ class Game:
             # Create a bullet and add it to the bullets group
             bullet = Bullet(self.hero.rect.centerx, self.hero.rect.top, self)
             self.bullets.add(bullet)
-        
+
     def check_keyup_events(self, event):
         # Respond to key releases
         if event.key == pygame.K_RIGHT:
             self.hero.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.hero.moving_left = False
-    
+
     def check_events(self):
         # Watch for keyboard and mouse events
         for event in pygame.event.get():
@@ -112,10 +112,15 @@ class Game:
     
     def check_bullet_alien_collisions(self):
         # Check for collisions between bullets and aliens
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
-        self.scoreboard.increase_stat(hits=len(collisions))
-        if len(self.aliens) == 0:
-            self.reset_game(True)
+        # If bullet setting is invincible, do not destroy the bullet
+        if self.settings.bullet_type == 'invincible':
+            collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False, True)
+        else:
+            collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if len(collisions) > 0:
+            self.scoreboard.increase_stat(hits=len(collisions))
+            if len(self.aliens) == 0:
+                self.reset_game(level_up=True)
     
     def check_hero_alien_collisions(self):
         # Check for collisions between the hero and aliens
@@ -126,6 +131,7 @@ class Game:
     def check_hero_powerup_collisions(self):
         collisions = pygame.sprite.spritecollide(self.hero, self.powerups, True)
         if len(collisions) > 0:
+            print(collisions[0].powerup)
             self.settings.change_bullet_setting(collisions[0].powerup)
     
     def reset_game(self, level_up = False):
@@ -150,10 +156,10 @@ class Game:
     def run_game(self):
         self.spawn_aliens()
         self.run = True
+        loop = 0
         while self.run:
-            # Randomly spawn a powerup once every 100 frames
-            print(self.clock.get_time())
-            if self.clock.get_time() % 100 == 0:
+            # Randomly spawn a powerup once every set number of frames
+            if loop % self.settings.powerup_odds == 0 and loop != 0:
                 powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
                 self.powerups.add(powerup)
 
@@ -174,6 +180,7 @@ class Game:
             # Check for collisions
             self.check_bullet_alien_collisions()
             self.check_hero_alien_collisions()
+            self.check_hero_powerup_collisions()
 
             # Redraw the screen
             self.screen.fill(self.settings.bg_color)
@@ -190,6 +197,9 @@ class Game:
 
             # Update the screen
             pygame.display.update()
+
+            # Increase loop count
+            loop += 1
             
             
 # Run the game
