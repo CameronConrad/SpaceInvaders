@@ -17,6 +17,7 @@ class Scoreboard:
         self.wins = 0
         self.losses = 0
         self.win_rate = 0
+        self.score = 0
         
         # Load Aoki font
         self.font = pygame.font.Font('Aoki Regular.otf', 30)
@@ -36,6 +37,7 @@ class Scoreboard:
         # Create the text for the scoreboard
         self.accuracy_text = self.font.render(f'A: {self.accuracy}', True, self.settings.scoreboard_text_color)
         self.win_rate_text = self.font.render(f'Win %: {self.win_rate}', True, self.settings.scoreboard_text_color)
+        self.score_text = self.font.render(f'Score: {self.score}', True, self.settings.scoreboard_text_color)
         self.level_text = self.font.render(f'Level: {self.game.level}', True, self.settings.scoreboard_text_color)
 
     def increase_stat(self, hits=0, misses=0, wins=0, losses=0):
@@ -54,7 +56,8 @@ class Scoreboard:
             self.accuracy = round(self.hits / (self.hits + self.misses), 3)
         if self.wins + self.losses > 0:
             self.win_rate = round(self.wins / (self.wins + self.losses), 3)
-    
+        self.score = self.game.level * self.game.settings.alien_rows * self.game.settings.alien_columns
+
     def draw(self, screen):
         # Update the scoreboard
         self.create_text()
@@ -63,7 +66,8 @@ class Scoreboard:
         # Draw the scoreboard
         pygame.draw.rect(screen, self.settings.scoreboard_bg_color, self.rect, border_radius=10)
 
-        # Draw the text all in one line so that it is centered
+        # Draw the text all in one line so that they are equally spaced
         screen.blit(self.accuracy_text, (self.rect.left + 10, self.rect.top + 10))
-        screen.blit(self.win_rate_text, (self.rect.centerx - (self.win_rate_text.get_width() / 2), self.rect.top + 10))
-        screen.blit(self.level_text, (self.rect.right - 10 - self.level_text.get_width(), self.rect.top + 10))
+        screen.blit(self.win_rate_text, (self.rect.left + 200, self.rect.top + 10))
+        screen.blit(self.score_text, (self.rect.right - 10 - self.score_text.get_width(), self.rect.top + 10))
+        screen.blit(self.level_text, (self.rect.right - 10 - self.score_text.get_width() - 200, self.rect.top + 10))
