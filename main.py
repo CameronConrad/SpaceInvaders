@@ -152,9 +152,10 @@ class Game:
         self.run = True
         while self.run:
             # Randomly spawn a powerup once every 100 frames
-            #if self.clock.get_fps() != 0 and self.clock.get_time() % 5 == 0:
-            powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
-            self.powerups.add(powerup)
+            print(self.clock.get_time())
+            if self.clock.get_time() % 100 == 0:
+                powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
+                self.powerups.add(powerup)
 
             # Set the FPS
             self.clock.tick(self.settings.fps)

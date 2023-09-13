@@ -15,7 +15,7 @@ class Powerup(pygame.sprite.Sprite):
         self.settings = self.game.settings
 
         # Create the image of the powerup
-        self.image = pygame.Surface((self.settings.powerup_radius * 2, self.settings.powerup_radius * 2))
+        self.image = pygame.Surface((self.settings.powerup_width, self.settings.powerup_height))
         self.image.fill(self.settings.powerup_color)
 
         # Get the rect of the powerup

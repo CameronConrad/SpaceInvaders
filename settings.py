@@ -39,9 +39,10 @@ class Settings:
         }
 
         # Powerup settings
-        self.powerup_speed = 4
-        self.powerup_radius = 5
+        self.powerup_width = 20
+        self.powerup_height = 20
         self.powerup_color = (255, 255, 255)
+        self.powerup_speed = 5
 
         # Level up settings
         self.alien_speed_increase = 0.05
