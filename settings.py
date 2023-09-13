@@ -39,6 +39,13 @@ class Settings:
             'invincible': [12, 5, 10] # 12 speed, 5 width, 10 height
         }
 
+        # Projectile settings
+        self.projectile_speed = 5
+        self.projectile_width = 5
+        self.projectile_height = 10
+        self.projectile_color = (255, 255, 255)
+        self.projectile_odds = 150
+
         # Powerup settings
         self.powerup_width = 20
         self.powerup_height = 20

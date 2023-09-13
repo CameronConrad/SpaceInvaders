@@ -34,11 +34,7 @@ class Scoreboard:
     
     def create_text(self):
         # Create the text for the scoreboard
-        self.hits_text = self.font.render(f'H: {self.hits}', True, self.settings.scoreboard_text_color)
-        self.misses_text = self.font.render(f'M: {self.misses}', True, self.settings.scoreboard_text_color)
         self.accuracy_text = self.font.render(f'A: {self.accuracy}', True, self.settings.scoreboard_text_color)
-        self.wins_text = self.font.render(f'W: {self.wins}', True, self.settings.scoreboard_text_color)
-        self.losses_text = self.font.render(f'L: {self.losses}', True, self.settings.scoreboard_text_color)
         self.win_rate_text = self.font.render(f'Win %: {self.win_rate}', True, self.settings.scoreboard_text_color)
         self.level_text = self.font.render(f'Level: {self.game.level}', True, self.settings.scoreboard_text_color)
 
@@ -67,7 +63,7 @@ class Scoreboard:
         # Draw the scoreboard
         pygame.draw.rect(screen, self.settings.scoreboard_bg_color, self.rect, border_radius=10)
 
-        # Draw the text all in one line
-        screen.blit(self.accuracy_text, (self.rect.x + 10, self.rect.y + 10))
-        screen.blit(self.win_rate_text, (self.rect.x + 150, self.rect.y + 10))
-        screen.blit(self.level_text, (self.rect.x + 360, self.rect.y + 10))
+        # Draw the text all in one line so that it is centered
+        screen.blit(self.accuracy_text, (self.rect.left + 10, self.rect.top + 10))
+        screen.blit(self.win_rate_text, (self.rect.centerx - (self.win_rate_text.get_width() / 2), self.rect.top + 10))
+        screen.blit(self.level_text, (self.rect.right - 10 - self.level_text.get_width(), self.rect.top + 10))
