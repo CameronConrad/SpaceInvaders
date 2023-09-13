@@ -23,5 +23,4 @@ Each time you complete a level, the speed of the aliens increases! The rate at w
 
 ## Alien and Spaceship images
 
-![Spaceship](/Images/spaceship.png)
-![Alien](/Images/spaceship.png)
+![Spaceship](/Images/spaceship.png) ![Alien](/Images/alien.png)
