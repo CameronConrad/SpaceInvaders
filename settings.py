@@ -34,7 +34,7 @@ class Settings:
         self.bullet_setting = {
             # Each setting has a list of bullet attributes corresponding to speed, width, and height.
             'normal': [12, 5, 10], # 12 speed, 5 width, 10 height
-            'speed': [20, 5, 10], # 20 speed, 5 width, 10 height
+            'speed': [29, 5, 10], # 29 speed, 5 width, 10 height
             'wide': [12, 50, 5], # 12 speed, 50 width, 5 height
             'invincible': [12, 5, 10] # 12 speed, 5 width, 10 height
         }
@@ -49,7 +49,7 @@ class Settings:
         # Powerup settings
         self.powerup_width = 20
         self.powerup_height = 20
-        self.powerup_color = (255, 255, 255)
+        self.powerup_color = (0, 255, 255)
         self.powerup_speed = 5
         self.powerup_odds = 1500
 
