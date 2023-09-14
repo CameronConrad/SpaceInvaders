@@ -8,10 +8,11 @@ This game displays a scoreboard with Aoki style font. It displays the player's a
 
 ## Powerups
 
-This game features powerups, which modify the bullet settings to make the bullets more powerful. These powerups include:
+This game features powerups, which modify the bullet settings to make the bullets more powerful. The more powerful the bullet, the less likely your odds of finding it are. These powerups include:
 - Increased bullet speed
 - Increased bullet width to target multiple enemies at the same time
 - Bullet invincibility (the bullet can pass through multiple enemies at a time)
+- Shock wave: The bullet has massive width
 
 ## Easy settings modification
 
