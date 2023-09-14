@@ -25,9 +25,10 @@ class Powerup(pygame.sprite.Sprite):
         self.rect.centerx = centerx
         self.rect.centery = centery
 
-        # Choose random powerup from bullet settings
-        self.powerup = random.choice(list(self.settings.bullet_setting.keys()))
-    
+        # Choose random powerup from bullet settings based on the odds of the bullet setting
+        weights = [self.settings.bullet_setting[key][3] for key in self.settings.bullet_setting]
+        self.powerup = random.choices(list(self.settings.bullet_setting.keys()), weights=weights)[0]
+
     def update(self):
         # Move the powerup down
         self.rect.y += self.settings.powerup_speed

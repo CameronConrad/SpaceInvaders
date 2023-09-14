@@ -33,10 +33,11 @@ class Settings:
 
         self.bullet_setting = {
             # Each setting has a list of bullet attributes corresponding to speed, width, and height.
-            'normal': [12, 5, 10], # 12 speed, 5 width, 10 height
-            'speed': [29, 5, 10], # 29 speed, 5 width, 10 height
-            'wide': [12, 50, 5], # 12 speed, 50 width, 5 height
-            'invincible': [12, 5, 10] # 12 speed, 5 width, 10 height
+            'normal': [12, 5, 10, 1], # 12 speed, 5 width, 10 height, 2 odds
+            'speed': [29, 5, 10, 5], # 29 speed, 5 width, 10 height, 4 odds
+            'wide': [12, 50, 5, 4], # 12 speed, 50 width, 5 height, 3 odds
+            'invincible': [12, 5, 10, 2], # 12 speed, 5 width, 10 height, 2 odds
+            'wave': [12, 200, 10, 1] # 12 speed, 200 width, 10 height, 1 odds
         }
 
         # Projectile settings
@@ -64,5 +65,5 @@ class Settings:
     
     def change_bullet_setting(self, setting):
         # Change the bullet setting
-        self.bullet_speed, self.bullet_width, self.bullet_height = self.bullet_setting[setting]
+        self.bullet_speed, self.bullet_width, self.bullet_height, odds = self.bullet_setting[setting]
         self.bullet_type = setting

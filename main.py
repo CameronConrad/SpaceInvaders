@@ -169,10 +169,10 @@ class Game:
         loop = 0
         while self.run:
             # Randomly spawn a powerup once every set number of frames
-            if loop % self.settings.powerup_odds == 0 and loop != 0:
+            if loop % self.settings.powerup_odds == 0:
                 powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
                 self.powerups.add(powerup)
-
+             
             # Randomly spawn a projectile at the position of a random alien once every set number of frames
             if loop % self.settings.projectile_odds == 0 and loop != 0:
                 alien = random.choice(self.aliens.sprites())
