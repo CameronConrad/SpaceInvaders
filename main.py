@@ -169,7 +169,7 @@ class Game:
         loop = 0
         while self.run:
             # Randomly spawn a powerup once every set number of frames
-            if loop % self.settings.powerup_odds == 0:
+            if loop % self.settings.powerup_odds == 0 and loop != 0:
                 powerup = Powerup(random.randint(0, self.settings.screen_width), 0, self)
                 self.powerups.add(powerup)
              
